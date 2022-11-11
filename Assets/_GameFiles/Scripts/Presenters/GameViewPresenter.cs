@@ -15,5 +15,10 @@ namespace TadPoleFramework
 
             }
         }
+
+        public void buttonclicked()
+        {
+            BroadcastUpward(new PoolPlatformEventArgs());
+        }
     }
 }
