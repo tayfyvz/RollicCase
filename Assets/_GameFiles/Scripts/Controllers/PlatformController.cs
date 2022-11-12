@@ -3,17 +3,13 @@ using UnityEngine;
 
 namespace TadPoleFramework
 {
-    public class PlatformController : MonoBehaviour
+    public class PlatformController : Platform
     {
-        [HideInInspector]
-        public Transform nextSpawnPoint;
-
-        [HideInInspector] public Renderer meshRenderer;
-
-        private void Awake()
+        public override void Awake()
         {
-            nextSpawnPoint = transform.GetChild(0);
+            base.Awake();
             meshRenderer = transform.GetChild(1).GetComponent<Renderer>();
+            isInteractable = false;
         }
     }
 }

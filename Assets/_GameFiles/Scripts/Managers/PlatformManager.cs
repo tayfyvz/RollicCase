@@ -6,11 +6,9 @@ namespace TadPoleFramework
 {
     public class PlatformManager : BaseManager
     {
-        [SerializeField] private int maxPlatform;
-        
-        private Queue<PlatformController> _platformQueue = new Queue<PlatformController>();
-        
-        private PlatformController _platformController;
+        private Queue<Platform> _platformQueue = new Queue<Platform>();
+
+        private List<Platform> _platforms = new List<Platform>();
         private Color _color;
         
         private Vector3 _nextSpawnPoints;
@@ -21,7 +19,7 @@ namespace TadPoleFramework
             switch (baseEventArgs)
             {
                 case PlatformSenderEventArgs platformSenderEventArgs:
-                    _platformController = platformSenderEventArgs.PlatformController;
+                    _platforms = platformSenderEventArgs.Platforms;
                     _color = platformSenderEventArgs.Color;
                     CreatePlatforms();
                     break;
@@ -35,25 +33,37 @@ namespace TadPoleFramework
         {
             _nextSpawnPoints = new Vector3(0, 0, -10);
             
-            for (int i = 0; i < maxPlatform; i++)
+            for (int i = 0; i < _platforms.Count; i++)
             {
-                PlatformController platform = Instantiate(_platformController, transform.position, Quaternion.identity, transform);
+                Platform platform = Instantiate(_platforms[i], transform.position, Quaternion.identity, transform);
                 _platformQueue.Enqueue(platform);
                 SpawnPlatform(platform);
             }
         }
 
-        private void SpawnPlatform(PlatformController platformController)
+        private void SpawnPlatform(Platform platform)
         {
-            platformController.transform.position = _nextSpawnPoints;
-            _nextSpawnPoints = platformController.nextSpawnPoint.position;
-            platformController.meshRenderer.material.SetColor( "_BaseColor", _color);
+            platform.transform.position = _nextSpawnPoints;
+            _nextSpawnPoints = platform.nextSpawnPoint.position;
+            if (platform.isInteractable)
+            {
+                platform.GetComponent<GateController>().OnCollectorEnterEvent += OnCollectorEnterEventHandler;
+            }
+            
+            platform.meshRenderer.material.SetColor( "_BaseColor", _color);
+            
         }
+
+        private void OnCollectorEnterEventHandler()
+        {
+            
+        }
+
         private void ContinuePlatform()
         {
-            PlatformController pc = _platformQueue.Dequeue();
-            SpawnPlatform(pc);
-            _platformQueue.Enqueue(pc);
+            // PlatformController pc = _platformQueue.Dequeue();
+            // SpawnPlatform(pc);
+            // _platformQueue.Enqueue(pc);
         }
     }
 }

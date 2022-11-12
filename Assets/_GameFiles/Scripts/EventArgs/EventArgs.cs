@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TadPoleFramework.Core;
 using UnityEngine;
 
@@ -20,12 +21,12 @@ namespace TadPoleFramework
 
     public class PlatformSenderEventArgs : BaseEventArgs
     {
-        public PlatformController PlatformController { get; set; }
+        public List<Platform> Platforms { get; set; }
         public Color Color { get; set; }
 
-        public PlatformSenderEventArgs(PlatformController platformController, Color color)
+        public PlatformSenderEventArgs(List<Platform> platforms, Color color)
         {
-            PlatformController = platformController;
+            Platforms = platforms;
             Color = color;
         }
     }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using Cinemachine;
 using TadPoleFramework;
 using TadPoleFramework.Core;
 using UnityEngine;
@@ -7,11 +8,13 @@ namespace TadPoleFramework
 {
     public class LevelManager : BaseManager
     {
+        [SerializeField] private CinemachineVirtualCamera cam;
+
         [Header("Collector Settings")]
         [SerializeField] private CollectorController collector;
 
         [Header("Platform Settings")] 
-        [SerializeField] private PlatformController platform;
+        [SerializeField] private List<Platform> platforms = new List<Platform>();
         [SerializeField] private Color color;
         
         private GameModel _gameModel;
@@ -28,6 +31,7 @@ namespace TadPoleFramework
         protected override void Awake()
         {
             base.Awake();
+            
             CreateCollector();
             SendPlatform();
         }
@@ -35,12 +39,13 @@ namespace TadPoleFramework
         private void CreateCollector()
         {
             CollectorController cc = Instantiate(collector, Vector3.zero, Quaternion.identity);
+            cam.Follow = cc.transform;
             Broadcast(new CollectorSenderEventArgs(cc));
         }
 
         private void SendPlatform()
         {
-            Broadcast(new PlatformSenderEventArgs(platform, color));
+            Broadcast(new PlatformSenderEventArgs(platforms, color));
         }
         public void InjectModel(GameModel gameModel)
         {
