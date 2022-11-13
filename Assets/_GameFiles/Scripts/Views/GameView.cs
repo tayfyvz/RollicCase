@@ -8,10 +8,15 @@ namespace TadPoleFramework
 {
     public class GameView : BaseView
     {
-        [SerializeField] private Button _button;
+        [SerializeField] private TextMeshProUGUI levelText;
         protected override void Initialize()
         {
-            _button.onClick.AddListener((_presenter as GameViewPresenter).buttonclicked);
+           
+        }
+
+        public void ChangeLevelText(int level)
+        {
+            levelText.text = "Level " + level;
         }
 
     }

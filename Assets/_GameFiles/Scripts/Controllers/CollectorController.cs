@@ -7,6 +7,8 @@ namespace TadPoleFramework
 {
     public class CollectorController : MonoBehaviour
     {
+        public event Action OnSuccesEvent;
+        
         [SerializeField] private Rigidbody myRb;
         [SerializeField] private float horiztontalSpeed = 10f;
         [SerializeField] private float verticalSpeed = 10f;
@@ -75,6 +77,16 @@ namespace TadPoleFramework
                 other.gameObject.tag = "Untagged";
                 DisableMovement();
                 StartCoroutine(WaitForGateControl(other));
+            }
+            else if (other.gameObject.CompareTag("LevelEnd"))
+            {
+                other.gameObject.tag = "Untagged";
+                DisableMovement();
+                transform.DOMove(new Vector3(0, transform.position.y, transform.position.z + 13), 1.5f).SetEase(Ease.Linear).OnComplete((
+                    () =>
+                    {
+                        OnSuccesEvent?.Invoke();
+                    }));
             }
         }
 

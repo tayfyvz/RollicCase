@@ -63,7 +63,7 @@ namespace TadPoleFramework
             
             #region Level //////////////////////////////////////////////////
             if (!PlayerPrefs.HasKey(prefKey_Level))
-                Level = 1;
+                Level = 0;
             else
                 Level = PlayerPrefs.GetInt(prefKey_Level);
             #endregion

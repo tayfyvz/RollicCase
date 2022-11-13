@@ -16,9 +16,9 @@ namespace TadPoleFramework
             }
         }
 
-        public void buttonclicked()
+        public void ChangeLevelText(int gameModelLevel)
         {
-            BroadcastUpward(new PoolPlatformEventArgs());
+            (view as GameView).ChangeLevelText(gameModelLevel+1);
         }
     }
 }

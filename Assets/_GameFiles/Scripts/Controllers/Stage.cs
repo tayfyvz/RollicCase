@@ -11,13 +11,13 @@ public class Stage : MonoBehaviour
     [SerializeField] private Color platformColor=Color.white;
     [SerializeField] private float platformLength=1;
 
-    [SerializeField] private GateController ballCollecterPlatform;
+    public GateController ballCollecterPlatform;
     [SerializeField] private PlatformController roadPlatform;
     private void Start()
     {
         ballCollecterPlatform.SetUpperCubeColor(platformColor);
         roadPlatform.SetPlatformColor(platformColor);
-        
+        ballCollecterPlatform.SetCollectLimit(targetBallCount);
     }
 
     public void SetupStage()

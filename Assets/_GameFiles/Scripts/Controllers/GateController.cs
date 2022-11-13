@@ -8,6 +8,8 @@ namespace TadPoleFramework
     public class GateController : Platform
     {
         public event Action OnContinueLevelEvent;
+        public event Action OnFailLevelEvent;
+
         [SerializeField] private int counter;
 
         [SerializeField] private TextMeshProUGUI goalCounterText;
@@ -24,7 +26,6 @@ namespace TadPoleFramework
         }
         public void SetCollectLimit(int newLimit)
         {
-            Debug.Log(newLimit);
             _collectLimit = newLimit;
         }
         public void SetUpperCubeColor(Color newColor)
@@ -55,7 +56,7 @@ namespace TadPoleFramework
             }
             else
             {
-                Debug.Log("Level Failed");
+                OnFailLevelEvent?.Invoke();
             }
         }
         private void ContinueLevel()

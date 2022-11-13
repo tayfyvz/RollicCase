@@ -8,9 +8,8 @@ namespace TadPoleFramework
     {
         private Queue<Platform> _platformQueue = new Queue<Platform>();
 
-        private List<Platform> _platforms = new List<Platform>();
-        private Color _color;
-        
+        private LevelInfoManager _levelInfoManager;
+
         private Vector3 _nextSpawnPoints;
         private Vector3 _lastPos;
 
@@ -18,10 +17,9 @@ namespace TadPoleFramework
         {
             switch (baseEventArgs)
             {
-                case PlatformSenderEventArgs platformSenderEventArgs:
-                    _platforms = platformSenderEventArgs.Platforms;
-                    _color = platformSenderEventArgs.Color;
-                    CreatePlatforms();
+                case LevelSenderEventArgs levelSenderEventArgs:
+                    _levelInfoManager = levelSenderEventArgs.Level;
+                    CreatePlatforms(_levelInfoManager.stages);
                     break;
                 case PoolPlatformEventArgs poolPlatformEventArgs:
                     ContinuePlatform();
@@ -29,29 +27,23 @@ namespace TadPoleFramework
             }
         }
         
-        private void CreatePlatforms()
+        private void CreatePlatforms(List<GameObject> stages)
         {
-            _nextSpawnPoints = new Vector3(0, 0, -10);
-            
-            for (int i = 0; i < _platforms.Count; i++)
+            for (int i = 0; i < stages.Count; i++)
             {
-                Platform platform = Instantiate(_platforms[i], transform.position, Quaternion.identity, transform);
-                _platformQueue.Enqueue(platform);
-                SpawnPlatform(platform);
+                ListenPlatform(stages[i]);
             }
         }
 
-        private void SpawnPlatform(Platform platform)
+        private void ListenPlatform(GameObject platform)
         {
-            platform.transform.position = _nextSpawnPoints;
-            _nextSpawnPoints = platform.nextSpawnPoint.position;
-            if (platform.isInteractable)
-            {
-                platform.GetComponent<GateController>().OnContinueLevelEvent += OnContinueLevelEventHandler;
-            }
-            
-            platform.meshRenderer.material.SetColor( "_BaseColor", _color);
-            
+            platform.GetComponent<Stage>().ballCollecterPlatform.OnContinueLevelEvent += OnContinueLevelEventHandler;
+            platform.GetComponent<Stage>().ballCollecterPlatform.OnFailLevelEvent += OnFailLevelEventHandler;
+        }
+
+        private void OnFailLevelEventHandler()
+        {
+            BroadcastUpward(new LevelFailEventArgs());
         }
 
         private void OnContinueLevelEventHandler()

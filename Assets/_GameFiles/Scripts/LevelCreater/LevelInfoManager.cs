@@ -6,8 +6,8 @@ using UnityEditor;
 
 public class LevelInfoManager : MonoBehaviour
 {
+    public List<GameObject> stages;
     [SerializeField] private Transform stagesParent;
-    [SerializeField] private List<GameObject> stages;
     [SerializeField] private GameObject stagePrefab;
     [SerializeField] private Renderer startCubeRenderer;
     [SerializeField] private Renderer endCubeRenderer;
@@ -71,10 +71,10 @@ public class LevelInfoManager : MonoBehaviour
     public void SetupStartEndObjects()
     {
         SetColorsOfStartEnd();
-        float endCubeZPos = 2.5f;
+        float endCubeZPos = 0f;
         foreach (var stage in stages)
         {
-            endCubeZPos += (stage.gameObject.GetComponent<Stage>().PlatformLength * 5f) + 5f;
+            endCubeZPos += (stage.gameObject.GetComponent<Stage>().PlatformLength * 5f) + 5;
         }
         endCube.transform.localPosition = new Vector3(endCube.transform.localPosition.x,
             endCube.transform.localPosition.y, endCubeZPos);
@@ -96,7 +96,7 @@ public class LevelInfoManager : MonoBehaviour
             if (i == 0)
             {
                 curStage.SetStagePosZ(0f);
-                lastPlatformLength = ((curStage.PlatformLength) * 5f) + 10f;
+                lastPlatformLength = ((curStage.PlatformLength) * 5f)+ 5f;
             }
             else
             {

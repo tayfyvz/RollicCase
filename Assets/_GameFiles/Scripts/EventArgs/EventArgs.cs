@@ -19,15 +19,13 @@ namespace TadPoleFramework
         }
     }
 
-    public class PlatformSenderEventArgs : BaseEventArgs
+    public class LevelSenderEventArgs : BaseEventArgs
     {
-        public List<Platform> Platforms { get; set; }
-        public Color Color { get; set; }
+        public LevelInfoManager Level { get; set; }
 
-        public PlatformSenderEventArgs(List<Platform> platforms, Color color)
+        public LevelSenderEventArgs(LevelInfoManager level)
         {
-            Platforms = platforms;
-            Color = color;
+            Level = level;
         }
     }
 
@@ -37,6 +35,25 @@ namespace TadPoleFramework
     }
 
     public class ContinueLevelEventArgs : BaseEventArgs
+    {
+        
+    }
+
+    public class LevelSuccessEventArgs : BaseEventArgs
+    {
+        
+    }
+
+    public class SuccessButtonClickedEventArgs : BaseEventArgs
+    {
+        
+    }
+
+    public class LevelFailEventArgs : BaseEventArgs
+    {
+        
+    }
+    public class FailButtonClickedEventArgs : BaseEventArgs
     {
         
     }

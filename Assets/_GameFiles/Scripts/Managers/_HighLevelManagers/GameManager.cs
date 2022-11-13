@@ -23,6 +23,12 @@ namespace TadPoleFramework
                 case PoolPlatformEventArgs poolPlatformEventArgs:
                     BroadcastDownward(poolPlatformEventArgs);
                     break;
+                case LevelSuccessEventArgs levelSuccessEventArgs:
+                    Broadcast(levelSuccessEventArgs);
+                    break;
+                case LevelFailEventArgs levelFailEventArgs:
+                    Broadcast(levelFailEventArgs);
+                    break;
             }
         }
 
@@ -32,18 +38,13 @@ namespace TadPoleFramework
             IMediator mediator = new BaseMediator();
             levelManager.InjectMediator(mediator);
             levelManager.InjectManager(this);
+            levelManager.InjectModel(gameModel);
             
             collectorManager.InjectMediator(mediator);
             collectorManager.InjectManager(this);
             
             platformManager.InjectMediator(mediator);
             platformManager.InjectManager(this);
-        }
-
-        protected override void Start()
-        {
-            base.Start();
-            /*levelManager.InjectModel(gameModel);*/
         }
 
         public void InjectModel(GameModel gameModel)

@@ -15,6 +15,7 @@ namespace TadPoleFramework
                     CollectorController collector = collectorSenderEventArgs.CollectorController;
                     _collector = collector;
                     _collector.transform.position = new Vector3(0, .65f, 0);
+                    _collector.OnSuccesEvent += OnSuccesEventHandler; 
                     // _collector.speed = speed;
                     break;
                 case PlayerIsTappedEventArgs playerIsTappedEventArgs:
@@ -25,6 +26,11 @@ namespace TadPoleFramework
                     _collector.EnableMovement();
                     break;
             }
+        }
+
+        private void OnSuccesEventHandler()
+        {
+            BroadcastUpward(new LevelSuccessEventArgs());
         }
     }
 }
