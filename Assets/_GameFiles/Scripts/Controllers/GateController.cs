@@ -7,32 +7,65 @@ namespace TadPoleFramework
 {
     public class GateController : Platform
     {
-        public event Action OnCollectorEnterEvent;
-        [SerializeField] private int goal;
+        public event Action OnContinueLevelEvent;
         [SerializeField] private int counter;
 
         [SerializeField] private TextMeshProUGUI goalCounterText;
 
+        [SerializeField] private Animator animator;
+        
         [SerializeField] private GameObject road;
+        private int _collectLimit;
         public override void Awake()
         {
             base.Awake();
             isInteractable = true;
-            meshRenderer = road.GetComponent<Renderer>();
+            
         }
+        public void SetCollectLimit(int newLimit)
+        {
+            Debug.Log(newLimit);
+            _collectLimit = newLimit;
+        }
+        public void SetUpperCubeColor(Color newColor)
+        {
+            road.GetComponent<Renderer>().sharedMaterial.color = newColor;
 
+        }
+        public void SetPosition(float lengthOfRoad)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y,
+                ((lengthOfRoad) * 5f));
+        }
+        public void SetCounter()
+        {
+            goalCounterText.text = counter + " / " + _collectLimit;
+        }
         public void IncreaseCounter()
         {
             counter++;
-            goalCounterText.text = counter + " / " + goal;
+            goalCounterText.text = counter + " / " + _collectLimit;
         }
 
-        public void ContinueLevel()
+        public void CheckLevelStatus()
+        {
+            if (counter >= _collectLimit)
+            {
+                ContinueLevel();
+            }
+            else
+            {
+                Debug.Log("Level Failed");
+            }
+        }
+        private void ContinueLevel()
         {
             road.SetActive(true);
-            road.transform.DOMoveY(0, .3f).SetEase(Ease.Linear).OnComplete(() =>
+            animator.SetTrigger("OpenGate");
+            road.transform.DOMoveY(0, .3f).SetEase(Ease.OutBounce).OnComplete(() =>
             {
                 road.GetComponent<BoxCollider>().isTrigger = false;
+                OnContinueLevelEvent?.Invoke();
             });
         }
     }

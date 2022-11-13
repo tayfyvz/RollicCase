@@ -72,6 +72,7 @@ namespace TadPoleFramework
         {
             if (other.gameObject.CompareTag("Gate"))
             {
+                other.gameObject.tag = "Untagged";
                 DisableMovement();
                 StartCoroutine(WaitForGateControl(other));
             }
@@ -80,7 +81,7 @@ namespace TadPoleFramework
         IEnumerator WaitForGateControl(Collider gate)
         {
             yield return new WaitForSeconds(2f);
-            gate.GetComponentInParent<GateController>().ContinueLevel();
+            gate.GetComponentInParent<GateController>().CheckLevelStatus();
         }
     }
 }

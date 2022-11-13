@@ -21,6 +21,9 @@ namespace TadPoleFramework
                     Debug.Log("player is tapped..start move");
                     _collector.EnableMovement();
                     break;
+                case ContinueLevelEventArgs continueLevelEventArgs:
+                    _collector.EnableMovement();
+                    break;
             }
         }
     }

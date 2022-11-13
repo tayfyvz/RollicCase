@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2278651378370454181}
   m_Layer: 0
   m_Name: PlatformShape
-  m_TagString: Untagged
+  m_TagString: LevelEnd
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2278651378370454183}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: -2.5}
+  m_LocalPosition: {x: 0, y: -0, z: 5}
   m_LocalScale: {x: 7.5, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 2278651379063546517}
@@ -88,11 +88,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2278651378370454183}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &2278651379063546518
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 2278651379063546517}
   - component: {fileID: 2278651379063546516}
   m_Layer: 0
-  m_Name: Platform
+  m_Name: PlatformEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +123,7 @@ Transform:
   m_Children:
   - {fileID: 2278651379586956793}
   - {fileID: 2278651378370454182}
-  - {fileID: 2156781675165029568}
+  - {fileID: 2591912463420066475}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -146,7 +146,7 @@ MonoBehaviour:
   platformRenderer: {fileID: 2278651378370454180}
   ballPrefab: {fileID: 3442827935034279610, guid: 7d742a38956a5c94eaecda320d6ae3a2,
     type: 3}
-  ballsParent: {fileID: 2156781675165029568}
+  ballsParent: {fileID: 2591912463420066475}
   platformMat: {fileID: 2100000, guid: aaac464842a3e19478f0d97ff03b69a7, type: 2}
 --- !u!1 &2278651379586956794
 GameObject:
@@ -178,7 +178,7 @@ Transform:
   m_Father: {fileID: 2278651379063546517}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8120791718026309010
+--- !u!1 &8094458258711077087
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,21 +186,21 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2156781675165029568}
+  - component: {fileID: 2591912463420066475}
   m_Layer: 0
-  m_Name: BallParent
+  m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2156781675165029568
+--- !u!4 &2591912463420066475
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8120791718026309010}
+  m_GameObject: {fileID: 8094458258711077087}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}

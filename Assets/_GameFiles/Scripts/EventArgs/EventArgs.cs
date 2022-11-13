@@ -35,4 +35,9 @@ namespace TadPoleFramework
     {
         
     }
+
+    public class ContinueLevelEventArgs : BaseEventArgs
+    {
+        
+    }
 }

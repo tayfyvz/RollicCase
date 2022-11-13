@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Cinemachine;
@@ -28,14 +29,21 @@ namespace TadPoleFramework
             }
         }
 
-        protected override void Awake()
+        public static event Action levelLoadedEvent;
+        public static LevelManager Instance { get; private set; }
+        private void Awake()
         {
-            base.Awake();
-            
-            CreateCollector();
-            SendPlatform();
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                Instance = this;
+            }
+            //ResetNextLevelIndex();
+            // LoadCurrentLevel();
         }
-
         private void CreateCollector()
         {
             CollectorController cc = Instantiate(collector, Vector3.zero, Quaternion.identity);

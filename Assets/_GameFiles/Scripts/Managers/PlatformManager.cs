@@ -47,16 +47,16 @@ namespace TadPoleFramework
             _nextSpawnPoints = platform.nextSpawnPoint.position;
             if (platform.isInteractable)
             {
-                platform.GetComponent<GateController>().OnCollectorEnterEvent += OnCollectorEnterEventHandler;
+                platform.GetComponent<GateController>().OnContinueLevelEvent += OnContinueLevelEventHandler;
             }
             
             platform.meshRenderer.material.SetColor( "_BaseColor", _color);
             
         }
 
-        private void OnCollectorEnterEventHandler()
+        private void OnContinueLevelEventHandler()
         {
-            
+            Broadcast(new ContinueLevelEventArgs());
         }
 
         private void ContinuePlatform()
